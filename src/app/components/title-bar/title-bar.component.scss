@@ -1,0 +1,56 @@
+:host {
+  height: 60px;
+  position: relative;
+  flex: none;
+
+  .battery {
+    position: absolute;
+    right: 20px;
+    top: 0px;
+    height: 60px;
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: Onion;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 24px;
+    span {
+      position: relative;
+      right: -10px;
+    }
+  }
+  .title {
+    position: absolute;
+    left: 50%;
+    top: 30px;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    line-height: 1;
+  }
+  .topbar {
+    position: absolute;
+    left: 20px;
+    top: 0px;
+    z-index: 2;
+    height: 60px;
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  & > image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+  .line {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+}

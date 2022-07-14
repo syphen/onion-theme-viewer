@@ -1,0 +1,166 @@
+@mixin sizes($attr, $side:"") {
+	$attrSide:"";
+	@if $side != "" {
+		$attrSide: -#{$side};
+	}
+
+	&#{$attrSide}-none {
+		#{$attr}#{$attrSide}: 0 !important;
+	}
+
+	&#{$attrSide}-a {
+		#{$attr}#{$attrSide}: auto !important;
+	}
+	&#{$attrSide}_5em {
+		#{$attr}#{$attrSide}: .5em !important;
+	}
+
+	@for $i from 0 through 10 {
+		&#{$attrSide}-#{$i} {
+			#{$attr}#{$attrSide}: $i * 1px !important;
+		}
+		&#{$attrSide}-#{$i}p {
+			#{$attr}#{$attrSide}: $i * 1% !important;
+		}
+		&#{$attrSide}-#{$i}0p {
+			#{$attr}#{$attrSide}: $i * 10% !important;
+		}
+
+		&#{$attrSide}-#{$i}rem {
+			#{$attr}#{$attrSide}: $i * 1rem !important;
+		}
+		&#{$attrSide}-#{$i}_25rem {
+			#{$attr}#{$attrSide}: ($i * 1rem) + .25rem !important;
+		}
+		&#{$attrSide}-#{$i}_5rem {
+			#{$attr}#{$attrSide}: ($i * 1rem) + .5rem !important;
+		}
+		&#{$attrSide}-#{$i}_75rem {
+			#{$attr}#{$attrSide}: ($i * 1rem) + .75rem !important;
+		}
+
+		&#{$attrSide}-#{$i}em {
+			#{$attr}#{$attrSide}: $i * 1em !important;
+		}
+		&#{$attrSide}-#{$i}_25em {
+			#{$attr}#{$attrSide}: ($i * 1em) + .25em !important;
+		}
+		&#{$attrSide}-#{$i}_5em {
+			#{$attr}#{$attrSide}: ($i * 1em) + .5em !important;
+		}
+		&#{$attrSide}-#{$i}_75em {
+			#{$attr}#{$attrSide}: ($i * 1em) + .75em !important;
+		}
+		&#{$attrSide}-#{$i}vh {
+			#{$attr}#{$attrSide}: $i * 1vh !important;
+		}
+		&#{$attrSide}-#{$i}vw {
+			#{$attr}#{$attrSide}: $i * 1vw !important;
+		}
+	}
+}
+
+@mixin sides($attr){
+	@include sizes(#{$attr});
+	@include sizes(#{$attr}, left);
+	@include sizes(#{$attr}, top);
+	@include sizes(#{$attr}, right);
+	@include sizes(#{$attr}, bottom);
+}
+
+// Display
+.d {
+	&-inline {
+		display: inline-block !important;
+    &-xs {
+      @include breakpoint(xs){
+        display: inline-block !important;
+      }
+    }
+	}
+	&-block {
+		display: block !important;
+    &-xs {
+      @include breakpoint(xs){
+        display: block !important;
+      }
+    }
+	}
+	&-none {
+		display: none !important;
+    &-xs {
+      @include breakpoint(xs){
+        display: none !important;
+      }
+    }
+	}
+	&-flex {
+		display: flex !important;
+    &-xs {
+      @include breakpoint(xs){
+        display: flex !important;
+      }
+    }
+	}
+}
+
+.lh {
+	@include sizes(line-height);
+}
+
+// Margin and padding
+.m {
+	@include sides(margin);
+}
+.p {
+	@include sides(padding);
+}
+
+// Width and height
+.w {
+	@include sizes(width);
+}
+.mw {
+	@include sizes(max-width);
+}
+.h {
+	@include sides(height);
+}
+.mh {
+	@include sizes(max-height);
+}
+
+// Sides
+.l {
+	@include sizes(left);
+}
+.t {
+	@include sizes(top);
+}
+.r {
+	@include sizes(right);
+}
+.b {
+	@include sizes(bottom);
+}
+
+.of {
+	&-auto {
+		overflow: auto !important;
+	}
+	&-scroll {
+		overflow: scroll !important;
+	}
+	&-visible {
+		overflow: visible !important;
+	}
+	&-inherit {
+		overflow: inherit !important;
+	}
+	&-hidden {
+		overflow: hidden !important;
+	}
+}
+.pointer {
+  cursor: pointer;
+}

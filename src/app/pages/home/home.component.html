@@ -1,0 +1,95 @@
+<div
+  class="theme-drop"
+  [class.over]="dragOver"
+  (dragleave)="dragOver = false"
+  (dragover)="drag($event)"
+  (drop)="dropFiles($event)"
+  *ngIf="!themeReady"
+>
+  <div class="error" *ngIf="error" [class.show]="error.show">
+    {{error.message}}
+  </div>
+  <div class="dropper">
+    <img src="./assets/icon.png" alt="">
+    Drop a theme folder here.
+  </div>
+</div>
+<div class="editor" *ngIf="themeReady">
+  <div class="sidebar">
+    <div class="settings">
+      <div class="setting" *ngFor="let item of config">
+        <label>
+          <ng-container *ngIf="item.value != undefined && item.type == 'boolean'">
+            <input (keyup)="$event.stopPropagation()" type="checkbox" [(ngModel)]="item.value" (change)="updateConfig()">
+          </ng-container>
+          <div class="name">{{item.key}}</div>
+          <ng-container *ngIf="item.value != undefined && item.type == 'color'">
+            <input class="color" [(colorPicker)]="item.value" (keyup)="$event.stopPropagation()" [style.background]="item.value" (colorPickerChange)="updateConfig()">
+          </ng-container>
+        </label>
+        <ng-container *ngIf="item.values != undefined">
+          <div class="setting" *ngFor="let setting of item.values">
+            <label>
+              <ng-container *ngIf="setting.type == 'boolean'">
+                <input (keyup)="$event.stopPropagation()" type="checkbox" [(ngModel)]="setting.value" (change)="updateConfig()">
+              </ng-container>
+              <div class="name">{{setting.key}}</div>
+              <ng-container *ngIf="setting.type == 'color'">
+                <input class="color" [(colorPicker)]="setting.value" (keyup)="$event.stopPropagation()" [style.background]="setting.value" (colorPickerChange)="updateConfig()">
+              </ng-container>
+            </label>
+            <ng-container *ngIf="setting.type != 'boolean' && setting.type != 'color'">
+              <input (keyup)="$event.stopPropagation()" type="{{setting?.type == 'number' ? 'number' : 'text'}}" [min]="setting?.type == 'number' ? (setting?.min ? setting?.min : 0) : undefined" [max]="setting?.max ? setting?.max : undefined" [step]="setting?.type == 'number' ? 1 : undefined" [(ngModel)]="setting.value" (change)="updateConfig()" *ngIf="setting?.type != 'color'">
+            </ng-container>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="item.value != undefined && item.type != 'boolean' && item.type != 'color'">
+          <input type="{{item?.type == 'number' ? 'number' : 'text'}}" [min]="item?.type == 'number' ? (item?.min ? item?.min : 0) : undefined" [max]="item.max ? item.max : undefined" [step]="item?.type == 'number' ? 1 : undefined" (keyup)="$event.stopPropagation()" [(ngModel)]="item.value" (change)="updateConfig()">
+        </ng-container>
+      </div>
+    </div>
+    <div class="message {{sidebarMsg?.type}}" [class.show]="sidebarMsg?.show">
+      {{sidebarMsg.message}}
+    </div>
+    <div class="actions" *ngIf="bgAudio">
+      <label>
+        <input (keyup)="$event.stopPropagation()" type="checkbox" [(ngModel)]="muted" (change)="updateVolume()">
+        <div class="name">Mute Music</div>
+      </label>
+    </div>
+    <div class="actions">
+      <a class="btn" (click)="theme.cancelTheme()">Cancel</a>
+      <div class="btn btn-accept" [class.disabled]="!changesMade" (click)="changesMade ? saveTheme() : ''">Save</div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="inside">
+      <div class="device">
+        <div class="screen">
+          <div class="inside" [style.opacity]="((theme.brightness/2) + 5)/10">
+            <router-outlet></router-outlet>
+          </div>
+          <audio loop autoplay [src]="theme.getAudio('bgm.mp3')" volume="{{theme.volume/20}}" *ngIf="bgAudio"></audio>
+          <img [src]="theme.getImage('background')" alt="">
+        </div>
+        <div class="dpad">
+          <div class="up" (click)="buttonPressed('up')" [class.hover]="button == 'up'"></div>
+          <div class="down" (click)="buttonPressed('down')" [class.hover]="button == 'down'"></div>
+          <div class="left" (click)="buttonPressed('left')" [class.hover]="button == 'left'"></div>
+          <div class="right" (click)="buttonPressed('right')" [class.hover]="button == 'right'"></div>
+        </div>
+        <div class="buttons">
+          <div class="a" (click)="buttonPressed('a')" [class.hover]="button == 'a'"><span>A</span></div>
+          <div class="b" (click)="buttonPressed('b')" [class.hover]="button == 'b'"><span>B</span></div>
+          <div class="x" (click)="buttonPressed('x')" [class.hover]="button == 'x'"><span>X</span></div>
+          <div class="y" (click)="buttonPressed('y')" [class.hover]="button == 'y'"><span>Y</span></div>
+        </div>
+        <div class="menu" (click)="buttonPressed('menu')" [class.hover]="button == 'menu'"></div>
+        <div class="actions">
+          <div class="select" (click)="buttonPressed('select')" [class.hover]="button == 'select'"><span>Select</span></div>
+          <div class="start" (click)="buttonPressed('start')" [class.hover]="button == 'start'"><span>Start</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

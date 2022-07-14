@@ -1,0 +1,69 @@
+@import './colors';
+
+.loader {
+  width: 100%;
+	height: .375rem;
+	box-sizing: border-box;
+  transition: all .25s;
+  border-radius: 1rem;
+	overflow:hidden;
+	margin: 1rem 0;
+  background-color: var(--gray_lighter);
+
+  &:before {
+    background-color: var(--primary);
+    content: '';
+    display: block;
+    width: 100%;
+  	height: .375rem;
+  	margin-top:0;
+  	margin-left:-100%;
+    animation: loaderProgress 1.5s infinite linear;
+  }
+}
+
+@keyframes loaderProgress{
+	0%{
+		margin-left:-100%;
+	}
+
+	100%{
+		margin-left:100%;
+	}
+}
+
+@keyframes scale {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1; }
+  45% {
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+    opacity: 0.7; }
+  80% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1; } }
+
+.ball-pulse > div:nth-child(1) {
+  -webkit-animation: scale 1s -0.5s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+          animation: scale 1s -0.5s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }
+
+.ball-pulse > div:nth-child(2) {
+  -webkit-animation: scale 1s -0.25s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+          animation: scale 1s -0.25s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }
+
+.ball-pulse > div:nth-child(3) {
+  -webkit-animation: scale 1s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+          animation: scale 1s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }
+$size: .5rem;
+.ball-pulse > div {
+  background-color: var(--gray_darkest);
+  width: $size;
+  height: $size;
+  border-radius: 100%;
+  margin: 2px;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+  display: inline-block; }

@@ -1,0 +1,13 @@
+<title-bar title="Expert"></title-bar>
+<div class="grid grid_3x3 rowFont">
+  <div class="inside">
+    <div class="item" [class.selected]="i == currentIndex" *ngFor="let item of consoles; let i = index" >
+      <image src="bg-ra-list-item" *ngIf="i == currentIndex"></image>
+      <div class="details">
+        <img src="./assets/rapps/{{item.name}}.png" alt="">
+        <div class="title">{{item.name}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<tips-bar (b)="navTo('/')"></tips-bar>

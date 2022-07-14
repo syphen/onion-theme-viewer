@@ -1,0 +1,42 @@
+:host {
+  height: 60px;
+  position: relative;
+  flex: none;
+
+  .battery {
+    position: absolute;
+    right: 20px;
+    top: 30px;
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+  .tipsbar {
+    position: absolute;
+    left: 20px;
+    top: 30px;
+    transform: translateY(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+
+    .a, .b {
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+      text-transform: uppercase;
+      
+      img {
+        display: block;
+        margin-right: 4px;
+      }
+      margin-right: 24px;
+    }
+  }
+
+  & > img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+}

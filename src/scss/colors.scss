@@ -1,0 +1,75 @@
+@import 'mixins';
+@import 'color_definitions';
+
+$ignore: 'white', 'off_white', 'gray_lightest', 'gray_lighter', 'gray_light', 'gray', 'gray_dark', 'gray_darker', 'gray_darkest', 'black';
+
+.fg {
+  @each $color, $hex in $colors {
+    &-#{$color} { color: var(--#{$color}); }
+  }
+}
+
+.bg {
+  @each $color, $hex in $colors {
+    &-#{$color} {
+      background-color: var(--#{$color});
+      @for $i from 0 through 9 {
+        &_#{$i} {
+          background-color: var(--#{$color}_#{$i});
+        }
+      }
+      @each $color2, $hex2 in $colors {
+        &-#{$color2} {
+          background: var(--#{$color}-#{$color2});
+        }
+      }
+    }
+  }
+}
+
+:root {
+  --shadow: 0 0 5px 1px rgba(0,0, 0, .2);
+  --shadow-wide: 0 0 .5rem .125rem rgba(0,0, 0, .2);
+  @each $color, $hex in $colors {
+    --shadow-#{$color}: 0 0 .375rem var(--#{$color});
+    --shadow-wide-#{$color}: 0 0 .5rem .125rem var(--#{$color});
+    --#{$color}: #{$hex};
+    @for $i from 0 through 9 {
+      --#{$color}_#{$i}: rgba(#{red($hex)}, #{green($hex)}, #{blue($hex)}, #{($i/10)});
+      --#{$color}-#{$i}: #{lighten($hex, (10 - $i) * 2.5%)};
+    }
+    @if map($ignore, $color) {
+      @each $color2, $hex2 in $colors {
+        @if $color != $color2 and map($ignore, $color2) {
+          --#{$color}-#{$color2}: linear-gradient(to bottom right, var(--#{$color}) 0, var(--#{$color2}) 100%);
+
+          --#{$color}-#{$color2}_left: linear-gradient(to left, var(--#{$color}) 0, var(--#{$color2}) 100%);
+          --#{$color}-#{$color2}_right: linear-gradient(to right, var(--#{$color}) 0, var(--#{$color2}) 100%);
+
+          --#{$color}-#{$color2}_bottom: linear-gradient(to bottom, var(--#{$color}) 0, var(--#{$color2}) 100%);
+          --#{$color}-#{$color2}_bottom-left: linear-gradient(to bottom left, var(--#{$color}) 0, var(--#{$color2}) 100%);
+          --#{$color}-#{$color2}_bottom-right: linear-gradient(to bottom right, var(--#{$color}) 0, var(--#{$color2}) 100%);
+
+          --#{$color}-#{$color2}_top: linear-gradient(to top, var(--#{$color}) 0, var(--#{$color2}) 100%);
+          --#{$color}-#{$color2}_top-left: linear-gradient(to top left, var(--#{$color}) 0, var(--#{$color2}) 100%);
+          --#{$color}-#{$color2}_top-right: linear-gradient(to top right, var(--#{$color}) 0, var(--#{$color2}) 100%);
+        }
+      }
+    }
+  }
+}
+
+@function opacity($name, $opacity){
+  $color: false;
+  @each $temp, $hex in $colors {
+    @if $temp == $name {
+      $color: rgba($hex, $opacity);
+    }
+  }
+  @if $color == false {
+    @error "#{$name} is not a valid color. Expected one of #{$colors}.";
+  }
+  @else {
+    @return $color;
+  }
+}

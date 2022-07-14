@@ -1,0 +1,348 @@
+@import './colors';
+@import './mixins';
+
+a {
+  cursor: pointer;
+  color: var(--info);
+}
+
+select, input, textarea {
+  font-family: inherit;
+  font-size: 1em;
+}
+select {
+  width: 100%;
+  box-sizing: border-box;
+  flex: none;
+  -moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+  outline: none;
+  border-radius: .25rem;
+  line-height: 1;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: .5rem;
+  box-sizing: border-box;
+  background-color: var(--white);
+  color: var(--gray_darkest);
+  border: 1px solid var(--gray_light);
+  box-shadow: inset 0 -2px 2px rgba(#000, .1);
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat, repeat;
+  /* arrow icon position (1em from the right, 50% vertical) , then gradient position*/
+  background-position: right .7em top 50%;
+  /* icon size, then gradient */
+  background-size: .65em auto;
+}
+.btn, button {
+  border-radius: .35rem;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  line-height: 1;
+  padding: .5rem 1rem;
+  transition: all .25s;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: var(--white);
+  color: var(--gray_darker);
+
+  i {
+    line-height: 1;
+    margin: 0 .5rem;
+    &:last-child {
+      margin-right: 0;
+    }
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &-inline {
+    display: inline-flex;
+  }
+
+  &-large {
+    font-size: 1.35rem;
+    padding: 1.25rem 2.25rem;
+    min-width: 14rem;
+  }
+  &-small {
+    font-size: .85rem;
+    padding: .5rem .75rem;
+  }
+
+  &:hover, &.hover {
+    box-shadow: inset 0 0 1px rgba(#000, 1);
+    color: var(--primary);
+  }
+  &:active, &.active {
+    box-shadow: inset 0 0 1px rgba(#000, 1);
+    background-color: var(--gray_lightest);
+    color: var(--primary_dark);
+  }
+  &.disabled {
+    box-shadow: inset 0 0 1px rgba(#000, 0);
+    background-color: var(--white);
+    color: var(--gray_light);
+    cursor: not-allowed;
+  }
+
+  &-primary {
+    box-shadow: inset 0 0 1px rgba(#000, .2);
+    background-color: var(--primary);
+    color: var(--white);
+
+    &:hover, &.hover {
+      box-shadow: inset 0 0 1px rgba(#000, .2);
+      background-color: var(--primary_dark);
+      color: var(--white);
+    }
+    &:active, &.active {
+      box-shadow: inset 0 0 1px rgba(#000, .2);
+      background-color: var(--primary_dark);
+      color: var(--white);
+    }
+    &.disabled {
+      box-shadow: inset 0 0 1px rgba(#000, 0);
+      background-color: var(--primary_3);
+      color: var(--white);
+      cursor: not-allowed;
+    }
+  }
+
+  &-secondary {
+    box-shadow: inset 0 0 1px rgba(#000, .2);
+    background-color: var(--secondary);
+    color: var(--white);
+
+    &:hover, &.hover {
+      box-shadow: inset 0 0 1px rgba(#000, .2);
+      background-color: var(--secondary_dark);
+      color: var(--white);
+    }
+    &:active, &.active {
+      box-shadow: inset 0 0 1px rgba(#000, .2);
+      background-color: var(--secondary_dark);
+      color: var(--white);
+    }
+    &.disabled {
+      background-color: var(--secondary_3);
+      box-shadow: inset 0 0 1px rgba(#000, 0);
+      color: var(--white);
+      &:hover {
+        background-color: var(--secondary_3);
+      }
+    }
+  }
+
+  &-outline {
+    box-shadow: inset 0 0 0 1px var(--info);
+    background-color: transparent;
+    color: var(--info);
+
+    &:hover, &.hover {
+      box-shadow: inset 0 0 0 1px var(--info);
+      background-color: var(--gray_lightest);
+      color: var(--info);
+    }
+    &:active, &.active {
+      box-shadow: inset 0 0 0 1px var(--info);
+      background-color: transparent;
+      color: var(--info);
+    }
+    &.disabled {
+      box-shadow: inset 0 0 0 1px var(--gray_light);
+      background-color: var(--white);
+      color: var(--gray_light);
+    }
+  }
+
+  &-accept {
+    background-color: var(--success);
+    color: var(--white);
+
+    &:hover, &.hover {
+      color: var(--white);
+    }
+    &.disabled {
+      background-color: var(--success_3);
+      color: var(--white);
+    }
+  }
+  &-reject {
+    background-color: var(--danger);
+    color: var(--white);
+
+    &:hover, &.hover {
+      color: var(--white);
+    }
+  }
+
+  @each $color, $hex in $colors {
+    &-#{$color} {
+      background-color: var(--#{$color});
+      color: get-text-color($hex);
+      &:hover, &.hover {
+        background-color: var(--#{$color}_8);
+        color: get-text-color(rgba($hex, .8));
+      }
+
+      &-outline {
+        background-color: var(--white);
+        border: 1px solid var(--#{$color});
+        color: var(--#{$color});
+        &:hover, &.hover {
+          background-color: var(--#{$color});
+          color: var(--white) !important;
+        }
+      }
+    }
+  }
+}
+.input_field {
+  border-radius: .25rem;
+  line-height: 1;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: .5rem;
+  box-sizing: border-box;
+  background-color: var(--white);
+  color: var(--gray_darkest);
+  border: 1px solid var(--gray_light);
+  box-shadow: inset 0 2px 3px rgba(#000, .15);
+  width: 100%;
+  min-width: 5rem;
+
+  &.ng-touched, .ng-submitted & {
+    &.ng-invalid {
+      border-color: var(--danger);
+    }
+  }
+
+  &:disabled {
+    background-color: var(--gray_lighter);
+    color: var(--gray_dark);
+  }
+  & + button {
+    margin-left: .5rem;
+    line-height: 1.2;
+  }
+}
+input {
+  outline: none;
+	&[type="text"], &[type="password"], &[type="number"], &[type="email"], &[type="time"], &[type="date"], &[type="datetime-local"] {
+    @extend .input_field;
+	}
+  &[type="time"] {
+    padding: .3rem .5rem .25rem .5rem;
+  }
+  &[type="checkbox"] {
+  }
+}
+textarea {
+  @extend .input_field;
+  width: 100%;
+}
+
+[contenteditable] {
+  @extend .input_field;
+  padding: .5rem;
+  outline: none;
+  &:empty {
+    &:before {
+      content: attr(placeholder);
+      color: var(--gray_dark);
+    }
+  }
+}
+quill-editor {
+  [contenteditable] {
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+
+    min-height: 10rem;
+  }
+}
+label.checkbox, label.radio {
+  position: relative;
+  input[type="checkbox"], input[type="radio"] {
+    position: absolute;
+    top: -300vh;
+    left: -300vw;
+    opacity: 0;
+    display: none;
+
+    & + span {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      line-height: 1;
+      cursor: pointer;
+
+      &:before {
+        font-family: 'Material Icons';
+        font-size: 1rem;
+        position: relative;
+        top: -1px;
+        content: '';
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        width: 1rem;
+        height: 1rem;
+        margin-right: .5rem;
+        border-radius: .2rem;
+        transition: .25s;
+
+        background-color: var(--white);
+        color: var(--white);
+        border: 1px solid var(--gray_light);
+      }
+
+      &:hover {
+        &:before {
+          background-color: var(--gray_lightest);
+        }
+      }
+    }
+    &:checked {
+      & + span {
+        &:before {
+          content: 'check';
+          border-color: var(--primary);
+          background-color: var(--primary);
+          color: var(--white);
+        }
+      }
+    }
+  }
+}
+label.radio {
+  position: relative;
+  input[type="radio"] {
+    & + span {
+      &:before {
+        border-radius: 1.5rem;
+        font-size: .75rem;
+        line-height: .75;
+      }
+    }
+    &:checked {
+      & + span {
+        &:before {
+          content: 'fiber_manual_record'
+        }
+      }
+    }
+  }
+}

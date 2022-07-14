@@ -1,0 +1,80 @@
+@import 'color_definitions';
+
+@function map($object, $key){
+  $result: '';
+  @each $tmp, $val in $object {
+    @if $tmp == $key {
+      $result: $val;
+    }
+  }
+  @return $result;
+}
+@function str-replace($string, $old, $new) {
+  @if str-index($new, $old) != 0 {
+    @warn "The string to be replaced is contained in the new string. Infinite recursion avoided.";
+    @return $string;
+  }
+
+  // Doing magic
+}
+@mixin breakpoint($class) {
+  @if $class == xs {
+    @media (max-width: 767px) { @content; }
+  }
+
+  @else if $class == sm {
+    @media (min-width: 768px) { @content; }
+  }
+
+  @else if $class == md {
+    @media (min-width: 992px) { @content; }
+  }
+
+  @else if $class == lg {
+    @media (min-width: 1200px) { @content; }
+  }
+
+  @else {
+    @warn "Breakpoint mixin supports: xs, sm, md, lg";
+  }
+}
+
+@mixin darkmode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+@function get-color($key){
+  @each $color, $hex in $colors {
+    @if $color == $key {
+      @return $hex;
+    }
+  }
+  @return #999;
+}
+
+@function get-text-color($color) {
+    @if (lightness( $color ) > 65) {
+      @return black;
+    }
+    @else {
+      @return white;
+    }
+}
+
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}

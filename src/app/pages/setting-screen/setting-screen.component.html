@@ -1,0 +1,20 @@
+<title-bar title="Settings"></title-bar>
+<div class="list listFont">
+  <ng-container *ngIf="theme && items?.length">
+  <div class="inside" [style.height.px]="items.length * 60" [style.top.px]="(0 - starting) * 60">
+    <div class="item" [class.selected]="currentIndex == i" *ngFor="let item of items; let i = index">
+      <div class="details">
+        <img [src]="theme.getImage(item.image)">
+        <span class="name">{{item.name}}</span>
+        <div class="range" *ngIf="item.range">
+          <div class="left" (click)="navLeft(i)"><img [src]="theme.getImage('icon-left-arrow-24')" alt=""></div>
+          <div class="value">{{item.range.value | number:'2.0'}}/{{item.range.high | number:'2.0'}}</div>
+          <div class="right" (click)="navRight(i)"><img [src]="theme.getImage('icon-right-arrow-24')" alt=""></div>
+        </div>
+      </div>
+      <img [src]="theme.getImage('bg-list-s')">
+    </div>
+  </div>
+  </ng-container>
+</div>
+<tips-bar (b)="navTo('/')"></tips-bar>

@@ -1,0 +1,226 @@
+@import './mixins';
+
+$font-family: 'Arial';
+@import '~material-design-icons/iconfont/material-icons.css';
+
+@font-face {
+  font-family: "Onion";
+  src: url('~/assets/default.ttf');
+}
+
+$body_font-size: 16px;
+$body_font-weight: normal;
+$body_line-height: 1.375;
+
+$font-size-tiny: .75rem;
+$font-size-small: .85rem;
+$font-size-large: 1.3rem;
+$font-size-xl: 2rem;
+
+$h1_font-size: 2.5rem;
+$h1_font-weight: bold;
+$h1_line-height: 1.05;
+
+$h2_font-size: 2rem;
+$h2_font-weight: bold;
+$h2_line-height: 1.25;
+
+$h3_font-size: 1.7rem;
+$h3_font-weight: bold;
+$h3_line-height: 1.25;
+
+$h4_font-size: 1.35rem;
+$h4_font-weight: bold;
+$h4_line-height: 1.25;
+
+$h5_font-size: 1.2rem;
+$h5_font-weight: bold;
+$h5_line-height: 1.25;
+
+$h6_font-size: 1rem;
+$h6_font-weight: bold;
+$h6_line-height: 1.25;
+
+:root {
+  --font-family: #{$font-family};
+
+  --body_font-size: #{$body_font-size};
+  --body_font-weight: #{$body_font-weight};
+  --body_line-height: #{$body_line-height};
+
+  --font-size-tiny: #{$font-size-tiny};
+  --font-size-small: #{$font-size-small};
+  --font-size-large: #{$font-size-large};
+  --font-size-xl: #{$font-size-xl};
+
+  --h1_font-size: #{$h1_font-size};
+  --h1_font-weight: #{$h1_font-weight};
+  --h1_line-height: #{$h1_line-height};
+
+  --h2_font-size: #{$h2_font-size};
+  --h2_font-weight: #{$h2_font-weight};
+  --h2_line-height: #{$h2_line-height};
+
+  --h3_font-size: #{$h3_font-size};
+  --h3_font-weight: #{$h3_font-weight};
+  --h3_line-height: #{$h3_line-height};
+
+  --h4_font-size: #{$h4_font-size};
+  --h4_font-weight: #{$h4_font-weight};
+  --h4_line-height: #{$h4_line-height};
+
+  --h5_font-size: #{$h5_font-size};
+  --h5_font-weight: #{$h5_font-weight};
+  --h5_line-height: #{$h5_line-height};
+
+  --h6_font-size: #{$h6_font-size};
+  --h6_font-weight: #{$h6_font-weight};
+  --h6_line-height: #{$h6_line-height};
+}
+
+html, body {
+  font-family: var(--font-family);
+  font-size: var(--body_font-size);
+  font-weight: var(--body_font-weight);
+  line-height: var(--body_line-height);
+  color: var(--gray_darkest);
+}
+
+.material-icons {
+  font-family: 'Material Icons' !important;
+  font-size: 1rem;
+  line-height: inherit;
+  &.rotate {
+    transform: rotate(90deg);
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: var(--font-family), sans-serif;
+}
+
+h1,
+.h1 {
+    font-size: var(--h1_font-size);
+    font-weight: var(--h1_font-weight);
+    line-height: var(--h1_line-height);
+}
+
+h2,
+.h2 {
+  font-size: var(--h2_font-size);
+  font-weight: var(--h2_font-weight);
+  line-height: var(--h2_line-height);
+}
+
+h3,
+.h3 {
+  font-size: var(--h3_font-size);
+  font-weight: var(--h3_font-weight);
+  line-height: var(--h3_line-height);
+}
+
+h4,
+.h4 {
+  font-size: var(--h4_font-size);
+  font-weight: var(--h4_font-weight);
+  line-height: var(--h4_line-height);
+}
+
+h5,
+.h5 {
+  font-size: var(--h5_font-size);
+  font-weight: var(--h5_font-weight);
+  line-height: var(--h5_line-height);
+}
+
+h6,
+.h6 {
+  font-size: var(--h6_font-size);
+  font-weight: var(--h6_font-weight);
+  line-height: var(--h6_line-height);
+}
+small {
+  font-size: .85em;
+}
+em {
+  font-style: italic;
+}
+b, strong {
+  font-weight: bold;
+}
+.font-tiny {
+  font-size: var(--font-size-tiny);
+}
+.font-normal {
+  font-size: 1rem;
+}
+.font-small {
+  font-size: var(--font-size-small);
+}
+.font-large {
+  font-size: var(--font-size-large);
+}
+.font-xl {
+  font-size: var(--font-size-xl);
+}
+.text {
+  &-uc {
+    text-transform: uppercase;
+  }
+  &-nowrap {
+    white-space: nowrap;
+  }
+  &-pre {
+    white-space: pre;
+  }
+}
+.align {
+  &-left {
+    text-align: left !important;
+  }
+  &-right {
+    text-align: right !important;
+  }
+  &-center {
+    text-align: center !important;
+  }
+}
+.weight {
+  &-normal {
+    font-weight: normal;
+  }
+  &-bold {
+    font-weight: bold;
+  }
+  &-lighter {
+    font-weight: lighter;
+  }
+
+  &-400 {
+    font-weight: 400;
+  }
+  &-500 {
+    font-weight: 500;
+  }
+  &-700 {
+    font-weight: 700;
+  }
+  &-900 {
+    font-weight: 900;
+  }
+}
+.flip {
+  transform: rotate(180deg);
+}

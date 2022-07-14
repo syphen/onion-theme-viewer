@@ -1,0 +1,13 @@
+<ng-container *ngIf="theme?.config">
+<div class="tipsbar tipsFont">
+  <div class="a" *ngIf="showA" (click)="onA($event)">
+    <image src="icon-A-54"></image>
+    <span>Open</span>
+  </div>
+  <div class="b" *ngIf="showB" (click)="onB($event)">
+    <image src="icon-B-54"></image>
+    <span>Back</span>
+  </div>
+</div>
+<image src="tips-bar-bg"></image>
+</ng-container>

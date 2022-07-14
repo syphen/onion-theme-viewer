@@ -1,0 +1,14 @@
+{
+  "name": "OTV",
+  "displayName": "Onion Theme Viewer",
+  "version": "0.2.1",
+  "main": "main.js",
+  "private": true,
+  "dependencies": {
+    "@electron/remote": "2.0.8",
+    "chokidar": "^3.5.3"
+  },
+  "devDependencies": {
+    "electron": "19.0.3"
+  }
+}

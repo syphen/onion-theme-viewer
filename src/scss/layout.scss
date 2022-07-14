@@ -1,0 +1,171 @@
+@import 'mixins';
+$max-width: 1100px;
+
+.container {
+  max-width: $max-width;
+  margin: auto;
+}
+
+.relative {
+  position: relative;
+}
+
+@mixin row {
+  display: flex;
+  flex-direction: row !important;
+  margin: .5rem 0;
+
+  &.centered {
+    align-items: center;
+  }
+
+  &-inline {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+  }
+
+  & > * {
+    flex: 1;
+    margin: 0 .5rem;
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &.slim {
+    margin: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.pull {
+    @for $i from 1 through 8 {
+      &-#{$i} {
+        &:after {
+          content: '';
+          display: block;
+          flex: $i/8;
+        }
+      }
+    }
+  }
+  &.push {
+    @for $i from 1 through 8 {
+      &-#{$i} {
+        &:before {
+          content: '';
+          display: block;
+          flex: $i/8;
+        }
+      }
+    }
+  }
+}
+
+.row {
+  @include row;
+}
+.xs-row {
+  @include breakpoint(xs){
+    @include row;
+  }
+}
+@mixin col {
+  display: flex;
+  flex-direction: column !important;
+
+  & > * {
+    flex: 1;
+  }
+}
+.col {
+  @include col;
+}
+.xs-col {
+  @include breakpoint(xs){
+    @include col;
+  }
+}
+
+@mixin flex {
+  &-none {
+    flex: none !important;
+  }
+  &-auto {
+    flex: auto;
+    overflow: auto;
+  }
+  &-wrap {
+    flex-wrap: wrap;
+  }
+  @for $i from 0 through 10 {
+    &-#{$i} {
+      flex: $i !important;
+      &_5 {
+        flex: $i + .5 !important;
+      }
+      &_25 {
+        flex: $i + .25 !important;
+      }
+    }
+  }
+  &-items {
+    &-start {
+      align-items: flex-start;
+    }
+    &-end {
+      align-items: flex-end;
+    }
+    &-center {
+      align-items: center;
+    }
+  }
+  &-content {
+    &-start {
+      align-content: flex-start;
+    }
+    &-end {
+      align-content: flex-end;
+    }
+    &-center {
+      align-content: center;
+    }
+  }
+  &-justify {
+    &-start {
+      justify-content: flex-start;
+    }
+    &-end {
+      justify-content: flex-end;
+    }
+    &-center {
+      justify-content: center;
+    }
+  }
+  &-self {
+    &-start {
+      align-self: flex-start;
+    }
+    &-end {
+      align-self: flex-end;
+    }
+    &-center {
+      align-self: center;
+    }
+  }
+}
+.flex {
+  @include flex;
+}
+.xs-flex {
+  @include breakpoint(xs){
+    @include flex;
+  }
+}

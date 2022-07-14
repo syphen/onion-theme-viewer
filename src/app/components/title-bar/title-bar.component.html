@@ -1,0 +1,12 @@
+<ng-container *ngIf="theme?.config">
+<div class="battery">
+  <image src="power-full-icon"></image>
+  <span *ngIf="theme?.config.batteryPercentage?.visible" [style.color]="batteryColor()">100%</span>
+</div>
+<div class="title titleFont" *ngIf="title">{{title}}</div>
+<div class="topbar" *ngIf="!title">
+  <image src="miyoo-topbar"></image>
+</div>
+<image src="bg-title"></image>
+<div class="line"><image src="div-line-h"></image></div>
+</ng-container>

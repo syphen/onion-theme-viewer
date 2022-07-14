@@ -1,0 +1,18 @@
+<title-bar title="Apps"></title-bar>
+<div class="list large listFont">
+  <ng-container *ngIf="theme && items?.length">
+  <div class="inside" [style.height.px]="items.length * 90" [style.top.px]="(0 - starting) * 90">
+    <div class="item" (click)="item.command != undefined ? item.command() : ''" [class.selected]="currentIndex == i" *ngFor="let item of items; let i = index">
+      <div class="icon">
+        <img [src]="getIcon(item)">
+      </div>
+      <div class="details">
+        <span class="name">{{item.name}}<ng-container *ngIf="item.enabled != undefined"> - {{item.enabled ? 'Enabled' : 'Disabled'}}</ng-container></span>
+        <div class="description tipsFont">{{item.description}}</div>
+      </div>
+      <img [src]="theme.getImage('bg-list-l')">
+    </div>
+  </div>
+  </ng-container>
+</div>
+<tips-bar (b)="navTo('/')" (a)="items[currentIndex].command != undefined ? items[currentIndex].command() : ''"></tips-bar>

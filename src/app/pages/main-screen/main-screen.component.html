@@ -1,0 +1,42 @@
+<title-bar></title-bar>
+<div class="list rowFont">
+  <div class="scroller" [style.left.%]="(0 - starting) * 25">
+    <div class="recents" (click)="navTo('recents')" [class.selected]="nav[currentIndex] == 'recents'">
+      <div class="title" *ngIf="configValue('hideIconTitle') !== true">Recents</div>
+      <img [src]="theme.getImage('ic-recent-n')" class="flat">
+      <img [src]="theme.getImage('ic-recent-f')" class="over">
+    </div>
+    <div class="favorites" (click)="navTo('favorites')" [class.selected]="nav[currentIndex] == 'favorites'">
+      <div class="title" *ngIf="configValue('hideIconTitle') !== true">Favorites</div>
+      <img [src]="theme.getImage('ic-favorite-n')" class="flat">
+      <img [src]="theme.getImage('ic-favorite-f')" class="over">
+    </div>
+    <div class="consoles" (click)="navTo('consoles')" [class.selected]="nav[currentIndex] == 'consoles'">
+      <div class="title" *ngIf="configValue('hideIconTitle') !== true">Consoles</div>
+      <img [src]="theme.getImage('ic-game-n')" class="flat">
+      <img [src]="theme.getImage('ic-game-f')" class="over">
+    </div>
+    <div class="expert" (click)="navTo('expert')" [class.selected]="nav[currentIndex] == 'expert'">
+      <div class="title" *ngIf="configValue('hideIconTitle') !== true">Expert</div>
+      <img [src]="theme.getImage('ic-retroarch-n')" class="flat">
+      <img [src]="theme.getImage('ic-retroarch-f')" class="over">
+    </div>
+    <div class="apps" (click)="navTo('apps')" [class.selected]="nav[currentIndex] == 'apps'">
+      <div class="title" *ngIf="configValue('hideIconTitle') !== true">Apps</div>
+      <image src="ic-app-n" *ngIf="nav[currentIndex] != 'apps'"></image>
+      <image src="ic-app-f" *ngIf="nav[currentIndex] == 'apps'"></image>
+    </div>
+    <div class="settings" (click)="navTo('settings')" [class.selected]="nav[currentIndex] == 'settings'">
+      <div class="title" *ngIf="configValue('hideIconTitle') !== true">Settings</div>
+      <img [src]="theme.getImage('ic-setting-n')" class="flat">
+      <img [src]="theme.getImage('ic-setting-f')" class="over">
+    </div>
+  </div>
+</div>
+<div class="dots">
+  <div class="dot" *ngFor="let item of nav; let i = index">
+    <img [src]="theme.getImage('dot-a')" *ngIf="i == currentIndex">
+    <img [src]="theme.getImage('dot-n')" *ngIf="i != currentIndex">
+  </div>
+</div>
+<tips-bar (a)="navTo(nav[currentIndex])"></tips-bar>
