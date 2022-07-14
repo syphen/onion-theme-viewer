@@ -348,7 +348,7 @@ export class HomeComponent implements OnInit {
                 var name = tmp[0];
                 var type = tmp[1];
 
-                if(this.electron.fs.existsSync(src)){
+                if(this.electron.fs.existsSync(`${this.theme.folder}/${src}`)){
                   fonts.push(src);
                   let font = new (window as any).FontFace(name, this.theme.getFont(src));
                   font.load().then(function(loadedFont) {
@@ -364,6 +364,7 @@ export class HomeComponent implements OnInit {
                   resolve()
                 }
               } catch(err) {
+                console.log(err);
                 reject(`Error loading ${this.electron.path.basename(src)} from ${this.themeFolder}`);
               }
             }));
