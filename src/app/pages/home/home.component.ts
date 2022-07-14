@@ -54,9 +54,11 @@ export class HomeComponent implements OnInit {
       }
       this.error.timer = setTimeout(() => {
         this.error.show = true;
-        this.error.timer = setTimeout(() => {
-          this.closeError();
-        }, time*1000);
+        if(time > 0){
+          this.error.timer = setTimeout(() => {
+            this.closeError();
+          }, time*1000);
+        }
       })
     })
   }
@@ -276,16 +278,20 @@ export class HomeComponent implements OnInit {
       else {
         this.parseConfig(this.theme.config);
         this.themeFolder = this.theme.folder;
+        this.theme.error = [];
         setTimeout(() => {
           var proms = [];
 
           proms.push(this.parseFonts());
           proms.push(this.parseImages());
 
-          Promise.all(proms).then(() => {
+          Promise.all(proms).then((resp) => {
             this.bgAudio = this.theme.hasAudio('bgm.mp3');
             this.originalConfig = JSON.stringify(this.config);
             this.themeReady = true;
+          }, err => {
+            if(this.electron.fs.existsSync(`${userPath}/lastDir.txt`)) this.electron.fs.unlinkSync(`${userPath}/lastDir.txt`);
+            this.displayError(err);
           })
         })
       }
@@ -300,7 +306,6 @@ export class HomeComponent implements OnInit {
       if(this.themeFolder){
         try {
           this.electron.fs.readdirSync(`${this.themeFolder}/skin`).forEach(tmp => {
-
             var ext = this.electron.path.extname(tmp).trim().toLowerCase();
             if(allowed.indexOf(ext) >= 0 && !tmp.startsWith('.')){
               proms.push(new Promise<void>((resolve, reject) => {
@@ -310,7 +315,7 @@ export class HomeComponent implements OnInit {
                   resolve();
                 }
                 img.onerror = (err) => {
-                  reject();
+                  reject(`Error loading ${tmp} from ${this.themeFolder}`);
                 }
                 img.src = 'data:image/*;base64,'+contents;
               }))
@@ -324,7 +329,7 @@ export class HomeComponent implements OnInit {
       Promise.all(proms).then(() => {
         res();
       }, err => {
-        rej();
+        rej(err);
       })
     })
   }
@@ -336,23 +341,30 @@ export class HomeComponent implements OnInit {
         var proms = [];
         Object.keys(this.theme.config).forEach(key => {
           if(typeof this.theme.config[key] == 'object' && this.theme.config[key].font != undefined && fonts.indexOf(this.theme.config[key].font) < 0){
-            proms.push(new Promise<void>((resolve, reject) => {
+            proms.push(new Promise<void|string>((resolve, reject) => {
               try {
                 var src = this.theme.config[key].font;
                 var tmp = src.split(".", 2);
                 var name = tmp[0];
                 var type = tmp[1];
 
-                fonts.push(src);
-                let font = new (window as any).FontFace(name, this.theme.getFont(src));
-                font.load().then(function(loadedFont) {
-                  (document as any).fonts.add(loadedFont);
-                  resolve();
-                }).catch(function(error) {
-                  resolve();
-                });
+                if(this.electron.fs.existsSync(src)){
+                  fonts.push(src);
+                  let font = new (window as any).FontFace(name, this.theme.getFont(src));
+                  font.load().then(function(loadedFont) {
+                    (document as any).fonts.add(loadedFont);
+                    resolve();
+                  }).catch(function(error) {
+                    reject(error);
+                  });
+                }
+                else {
+                  var err = `The font ${this.electron.path.basename(src)} could not be found in ${this.themeFolder}.`;
+                  if(this.theme.error.indexOf(err) < 0) this.theme.error.push(err);
+                  resolve()
+                }
               } catch(err) {
-                reject();
+                reject(`Error loading ${this.electron.path.basename(src)} from ${this.themeFolder}`);
               }
             }));
           }
@@ -422,7 +434,7 @@ export class HomeComponent implements OnInit {
           })
           res();
         }, err => {
-          rej();
+          rej(err);
         });
       }
       else {

@@ -7,7 +7,9 @@
   *ngIf="!themeReady"
 >
   <div class="error" *ngIf="error" [class.show]="error.show">
-    {{error.message}}
+    <div [innerHTML]="error.message"></div>
+    <div class="actions" *ngIf="error.actions">
+    </div>
   </div>
   <div class="dropper">
     <img src="./assets/icon.png" alt="">
@@ -63,6 +65,15 @@
     </div>
   </div>
   <div class="body">
+    <div class="error" *ngIf="theme.error?.length">
+      <div *ngFor="let error of theme.error">
+        {{error}}
+      </div>
+      <div>
+        Check the config.json file to make sure your settings and paths are set correctly.
+      </div>
+      <a (click)="theme.error = []">Dismiss</a>
+    </div>
     <div class="inside">
       <div class="device">
         <div class="screen">

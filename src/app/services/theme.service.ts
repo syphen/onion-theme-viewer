@@ -13,6 +13,7 @@ export class ThemeService {
   brightness:any = 10;
   volume:any = 20;
   fileChanged = 0;
+  error:any;
 
   changes: Subject<any> = new Subject();
   files: Subject<any> = new Subject();
