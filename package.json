@@ -1,7 +1,7 @@
 {
   "name": "onion-theme-viewer",
   "displayName": "Onion Theme Viewer",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "An easy way to preview your Onion OS theme",
   "author": "Rui Da Costa",
   "main": "app/main.js",

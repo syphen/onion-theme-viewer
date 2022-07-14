@@ -1,7 +1,7 @@
 {
   "name": "OTV",
   "displayName": "Onion Theme Viewer",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "main.js",
   "private": true,
   "dependencies": {
