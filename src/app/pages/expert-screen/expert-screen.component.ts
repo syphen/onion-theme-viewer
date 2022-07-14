@@ -86,20 +86,23 @@ export class ExpertScreenComponent implements OnInit {
         break;
 
         case 'up':
-        if(this.currentIndex >= 3) {
-          this.currentIndex = this.currentIndex - 3;
-        }
-        else if(this.currentIndex + 3 >= this.consoles.length){
-          this.currentIndex = this.consoles.length - 1;
+        if(this.currentIndex < 3) {
+          if(this.currentIndex + 6 >= this.consoles.length){
+            this.currentIndex = this.consoles.length - 1;
+          }
+          else {
+            this.currentIndex = this.currentIndex + 6;
+          }
         }
         else {
-          this.currentIndex = this.currentIndex + 3;
+          this.currentIndex = this.currentIndex - 3;
         }
+        console.log(this.currentIndex, this.consoles.length);
         break;
 
         case 'down':
-        if(this.currentIndex >= 3) {
-          this.currentIndex = this.currentIndex - 3;
+        if(this.currentIndex >= 6) {
+          this.currentIndex = this.currentIndex - 6;
         }
         else if(this.currentIndex + 3 >= this.consoles.length){
           this.currentIndex = this.consoles.length - 1;
