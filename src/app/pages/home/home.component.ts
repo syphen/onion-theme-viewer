@@ -300,8 +300,9 @@ export class HomeComponent implements OnInit {
       if(this.themeFolder){
         try {
           this.electron.fs.readdirSync(`${this.themeFolder}/skin`).forEach(tmp => {
+
             var ext = this.electron.path.extname(tmp).trim().toLowerCase();
-            if(allowed.indexOf(ext) >= 0){
+            if(allowed.indexOf(ext) >= 0 && !tmp.startsWith('.')){
               proms.push(new Promise<void>((resolve, reject) => {
                 var img = new window.Image();
                 const contents = this.electron.fs.readFileSync(`${this.themeFolder}/skin/${tmp}`, {encoding: 'base64'});
