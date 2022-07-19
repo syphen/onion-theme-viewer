@@ -231,13 +231,17 @@ export class HomeComponent implements OnInit {
 
     if(this.electron.fs.existsSync(`${userPath}/lastDir.txt`)){
       var themeDir = this.electron.fs.readFileSync(`${userPath}/lastDir.txt`, 'utf8').trim();
+      if(this.electron.fs.existsSync(`${themeDir}/config.json`)){
+        var config = JSON.parse(this.electron.fs.readFileSync(`${themeDir}/config.json`, 'utf8'));
+        var folder = themeDir;
 
-      var config = JSON.parse(this.electron.fs.readFileSync(`${themeDir}/config.json`, 'utf8'));
-      var folder = themeDir;
-
-      setTimeout(() => {
-        this.theme.changeTheme({folder: folder, config: config});
-      })
+        setTimeout(() => {
+          this.theme.changeTheme({folder: folder, config: config});
+        })
+      }
+      else {
+        this.electron.fs.unlinkSync(`${userPath}/lastDir.txt`);
+      }
     }
     if(this.electron.fs.existsSync(`${userPath}/lastVolume.txt`)){
       var volume:any = this.electron.fs.readFileSync(`${userPath}/lastVolume.txt`, 'utf8').trim();
